@@ -19,6 +19,7 @@ class ReplyCollection extends Resource
             'reply' => $this->reply,
             'time' => $this->created_at->format('Y-m-d H:i'),
             'by' => $this->user->name,
+            'likes' => $this->reply_pluses_count
         ];
     }
 }

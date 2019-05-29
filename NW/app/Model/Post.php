@@ -8,13 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     protected $relations = [
-      'comments'
+        'comments',
+        'upvotes',
+        'downvotes'
     ];
 
     protected $withCount = [
         'comments',
-//        'upvotes',
-//        'downvotes'
+        'upvotes',
+        'downvotes'
     ];
 
     protected $hidden = [
@@ -43,6 +45,14 @@ class Post extends Model
 
     public function location(){
         return $this->belongsTo(Location::class);
+    }
+
+    public function upvotes(){
+        return $this->hasMany(Upvote::class);
+    }
+
+    public function downvotes(){
+        return $this->hasMany(Downvote::class);
     }
 
 }

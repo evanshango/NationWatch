@@ -23,6 +23,8 @@ class PostCollection extends Resource
             'created_at' => $this->created_at->format('Y-m-d H:i'),
             'is_positive' => $this->is_positive,
             'comments' => $this->comments_count,
+            'upvotes' => $this->upvotes_count,
+            'downvotes' => $this->downvotes_count,
             'tags' => [
                 'tag1' => $this->tag1->name,
                 'tag2' => $this->tag2['name'],

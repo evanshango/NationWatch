@@ -15,7 +15,7 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('username')->unique();
+            $table->string('name')->unique();
             $table->string('email')->unique();
             $table->integer('location_id')->unsigned();
             $table->year('yob');
@@ -25,6 +25,8 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->boolean('is_suspended')->default(0);
             $table->timestamps();
+
+            $table->foreign('location_id')->references('id')->on('locations')->onDelete('cascade');
         });
     }
 

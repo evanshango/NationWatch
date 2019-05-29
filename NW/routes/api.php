@@ -24,6 +24,13 @@ Route::get('comment/{post_id}', 'CommentController@show');
 // replies
 Route::get('replies', 'ReplyController@index');
 Route::get('replies/{comment_id}', 'ReplyController@show');
+//votes
+Route::get('upvotes', 'VoteController@upvote');
+Route::get('downvotes', 'VoteController@downvote');
+//comment plus one
+Route::get('comment+', 'CommentPlusController@index');
+//reply plus one
+Route::get('reply+', 'ReplyPlusController@index');
 
 Route::middleware('auth:api')->group( function () {
     Route::post('logout', 'AuthController@logout');
@@ -41,5 +48,10 @@ Route::middleware('auth:api')->group( function () {
     Route::put('reply/{id}/edit', 'ReplyController@update');
     Route::delete('reply/{id}/delete', 'ReplyController@destroy');
 
-});
+    Route::post('upvote', 'VoteController@doUpvote');
+    Route::post('downvote', 'VoteController@doDownvote');
 
+    Route::post('comment+', 'CommentPlusController@store');
+    Route::post('reply+', 'ReplyPlusController@store');
+
+});

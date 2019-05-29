@@ -6,6 +6,7 @@ use App\Http\Requests\ReplyRequest;
 use App\Http\Resources\Reply\ReplyCollection;
 use App\Model\Reply;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
@@ -42,13 +43,12 @@ class ReplyController extends Controller
 
     /**
      * Display the specified resource.
-     *
      * @param Request $request
-     * @return void
+     * @return AnonymousResourceCollection
      */
     public function show(Request $request){
         $reply = Reply::where('comment_id', '=', $request->comment_id)->orderBy('id', 'desc')->get();
-        return response()->json($reply);
+        return ReplyCollection::collection($reply);
     }
 
     /**

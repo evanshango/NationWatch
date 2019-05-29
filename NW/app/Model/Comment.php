@@ -8,11 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Comment extends Model
 {
     protected $relations = [
-        'user'
+        'user',
     ];
 
     protected $withCount = [
-        'replies'
+        'replies',
+        'comment_pluses'
     ];
 
     public function post(){
@@ -25,5 +26,9 @@ class Comment extends Model
 
     public function replies(){
         return $this->hasMany(Reply::class);
+    }
+
+    public function comment_pluses(){
+        return $this->hasMany(CommentPlus::class);
     }
 }

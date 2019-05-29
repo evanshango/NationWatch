@@ -21,6 +21,7 @@ class CommentCollection extends Resource
             'image' => $this->image,
             'time' => $this->created_at->format('Y-m-d H:i'),
             'replies' => $this->replies_count,
+            'likes' => $this->comment_pluses_count,
             'user' => [
                 'by' => $this->user->name,
                 'pic' => $this->user->profile_pic

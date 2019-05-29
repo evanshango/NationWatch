@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
     {
         // $this->call(UsersTableSeeder::class);
 //        factory(LocationResource::class, 15)->create();
-//        factory(Comment::class, 4)->create();
+//        factory(Comment::class, 10)->create();
 //        factory(Reply::class, 30)->create();
     }
 }

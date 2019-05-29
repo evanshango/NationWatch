@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PostRequest;
 use App\Http\Resources\Post\PostCollection;
 use App\Model\Post;
-use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request as RequestAlias;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
@@ -52,26 +54,25 @@ class PostController extends Controller
 
     /**
      * Display the specified resource.
-     *
-     * @param $id
-     * @return Response
+     * @param RequestAlias $request
+     * @return AnonymousResourceCollection
      */
-    public function show($id)
+    public function show(RequestAlias $request)
     {
-        $post = Post::find($id);
+        $post = Post::where('id', '=', $request->id)->orderBy('id', 'desc')->get();
         if ($post == null){
             return response()->json([
                 'message' => 'Item not be found'
             ], Response::HTTP_NOT_FOUND);
         }
-        return response()->json($post);
+        return PostCollection::collection($post);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
-     * @param Post $post
+     * @param PostRequest $request
+     * @param $id
      * @return Response
      */
     public function update(PostRequest $request, $id)
