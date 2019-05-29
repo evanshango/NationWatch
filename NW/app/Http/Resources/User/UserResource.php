@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\User;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\Resource;
@@ -23,7 +23,7 @@ class UserResource extends Resource
             'Year of birth' => $this->yob,
             'location' => [
                 'name' => $this->location->name
-            ]
+                ]
         ];
     }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\LocationCollection;
+use App\Http\Resources\Location\LocationCollection;
 use App\Model\Location;
 use Illuminate\Http\Request;
 

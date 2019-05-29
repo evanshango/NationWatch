@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\UserCollection;
+use App\Http\Resources\User\UserCollection;
 use App\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;

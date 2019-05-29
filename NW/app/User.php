@@ -2,14 +2,17 @@
 
 namespace App;
 
+use App\Model\Comment;
 use App\Model\Location;
+use App\Model\Post;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Hash;
+use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use HasApiTokens, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -38,8 +41,21 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    protected $relations = [
+        'location',
+        'comments'
+    ];
+
+    public function posts(){
+        return $this->hasMany(Post::class);
+    }
+
     public function location(){
         return $this->belongsTo(Location::class);
+    }
+
+    public function comments(){
+        return $this->hasMany(Comment::class);
     }
 
     public function setPasswordAttribute($value){

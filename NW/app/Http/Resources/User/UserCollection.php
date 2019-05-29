@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\User;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\Resource;
@@ -21,9 +21,7 @@ class UserCollection extends Resource
             'description' => $this->description,
             'profile_pic' => $this->profile_pic,
             'Year of birth' => $this->yob,
-            'location' => [
-                'name' => $this->location->name
-            ]
+            'location' => $this->location->name
         ];
     }
 }
