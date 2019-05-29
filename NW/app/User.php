@@ -5,6 +5,7 @@ namespace App;
 use App\Model\Comment;
 use App\Model\Location;
 use App\Model\Post;
+use App\Model\Reply;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Hash;
@@ -56,6 +57,10 @@ class User extends Authenticatable
 
     public function comments(){
         return $this->hasMany(Comment::class);
+    }
+
+    public function replies(){
+        return $this->hasMany(Reply::class);
     }
 
     public function setPasswordAttribute($value){

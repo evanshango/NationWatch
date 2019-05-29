@@ -22,14 +22,16 @@ class PostCollection extends Resource
             'description' => $this->text,
             'created_at' => $this->created_at->format('Y-m-d H:i'),
             'is_positive' => $this->is_positive,
+            'comments' => $this->comments_count,
             'tags' => [
                 'tag1' => $this->tag1->name,
                 'tag2' => $this->tag2['name'],
                 'tag3' => $this->tag3['name']
             ],
-            'name' => $this->user->name,
-            'location' => $this->user->location->name,
-            'comments' => $this->comments_count
+            'by' => [
+                'name' => $this->user->name,
+                'location' => $this->user->location->name,
+            ]
 
         ];
     }

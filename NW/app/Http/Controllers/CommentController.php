@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CommentRequest;
+use App\Http\Resources\Comment\CommentCollection;
 use App\Model\Comment;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
@@ -14,12 +16,11 @@ class CommentController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return Response
      */
     public function index()
     {
-        $comments = Comment::with('user')->orderBy('id', 'desc')->get();
-        return response()->json($comments);
+        $comments = Comment::orderBy('id', 'desc')->get();
+        return CommentCollection::collection($comments);
     }
 
     /**
