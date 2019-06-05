@@ -9,7 +9,8 @@ class Reply extends Model
 {
 
     protected $withCount = [
-        'reply_pluses'
+        'reply_pluses',
+        'reports'
     ];
 
     public function comment(){
@@ -22,5 +23,9 @@ class Reply extends Model
 
     public function reply_pluses(){
         return $this->hasMany(ReplyPlus::class);
+    }
+
+    public function reports(){
+        return $this->hasMany(ReportReply::class);
     }
 }

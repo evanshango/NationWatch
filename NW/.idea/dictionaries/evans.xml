@@ -3,10 +3,16 @@
     <words>
       <w>authenticatable</w>
       <w>commentplus</w>
+      <w>commentreports</w>
       <w>downvote</w>
       <w>downvotes</w>
       <w>fillable</w>
+      <w>postreports</w>
       <w>replyplus</w>
+      <w>replyreports</w>
+      <w>reportcomment</w>
+      <w>reportpost</w>
+      <w>reportreply</w>
       <w>upvote</w>
       <w>upvotes</w>
     </words>

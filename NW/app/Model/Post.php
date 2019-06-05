@@ -10,13 +10,15 @@ class Post extends Model
     protected $relations = [
         'comments',
         'upvotes',
-        'downvotes'
+        'downvotes',
+        'reports'
     ];
 
     protected $withCount = [
         'comments',
         'upvotes',
-        'downvotes'
+        'downvotes',
+        'reports'
     ];
 
     protected $hidden = [
@@ -53,6 +55,14 @@ class Post extends Model
 
     public function downvotes(){
         return $this->hasMany(Downvote::class);
+    }
+
+    public function reports(){
+        return $this->hasMany(ReportPost::class);
+    }
+
+    public function tag_stats(){
+        return $this->belongsTo(TagStats::class);
     }
 
 }

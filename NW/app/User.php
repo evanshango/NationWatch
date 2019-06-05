@@ -6,6 +6,9 @@ use App\Model\Comment;
 use App\Model\Location;
 use App\Model\Post;
 use App\Model\Reply;
+use App\Model\ReportComment;
+use App\Model\ReportPost;
+use App\Model\ReportReply;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Hash;
@@ -65,5 +68,17 @@ class User extends Authenticatable
 
     public function setPasswordAttribute($value){
         $this->attributes['password'] = Hash::make($value);
+    }
+
+    public function reportPost(){
+        return $this->hasOne(ReportPost::class);
+    }
+
+    public function reportComment(){
+        return $this->hasOne(ReportComment::class);
+    }
+
+    public function reportReply(){
+        return $this->hasOne(ReportReply::class);
     }
 }

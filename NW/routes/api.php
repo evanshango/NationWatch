@@ -18,6 +18,8 @@ Route::delete('tags/{id}/delete', 'TagController@destroy');
 // posts
 Route::get('posts', 'PostController@index');
 Route::get('post/{id}', 'PostController@show');
+Route::get('posts/positive', 'PostController@isPositive');
+Route::get('posts/non-positive', 'PostController@isNegative');
 //comments
 Route::get('comments', 'CommentController@index');
 Route::get('comment/{post_id}', 'CommentController@show');
@@ -31,6 +33,12 @@ Route::get('downvotes', 'VoteController@downvote');
 Route::get('comment+', 'CommentPlusController@index');
 //reply plus one
 Route::get('reply+', 'ReplyPlusController@index');
+//report posts
+Route::get('post-reports', 'ReportsController@reportPosts');
+Route::get('comment-reports', 'ReportsController@reportComments');
+Route::get('reply-reports', 'ReportsController@reportReplies');
+// tag-stats
+Route::get('tag-stats', 'TagStatsController@updateStats');
 
 Route::middleware('auth:api')->group( function () {
     Route::post('logout', 'AuthController@logout');
@@ -53,5 +61,9 @@ Route::middleware('auth:api')->group( function () {
 
     Route::post('comment+', 'CommentPlusController@store');
     Route::post('reply+', 'ReplyPlusController@store');
+
+    Route::post('report-post', 'ReportsController@reportPost');
+    Route::post('report-comment', 'ReportsController@reportComment');
+    Route::post('report-reply', 'ReportsController@reportReply');
 
 });

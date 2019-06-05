@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PostRequest;
 use App\Http\Resources\Post\PostCollection;
 use App\Model\Post;
+use http\Env\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request as RequestAlias;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
@@ -20,6 +21,7 @@ class PostController extends Controller
     public function index()
     {
         $post = Post::orderBy('id', 'desc')->get();
+//        return response()->json($post);
         return PostCollection::collection($post);
     }
 
@@ -106,6 +108,16 @@ class PostController extends Controller
         return response()->json([
             'message' => 'Posts added successfully.',
         ]);
+    }
+
+    public function isPositive(){
+        $post = Post::where('is_positive', '=', 1)->orderBy('id', 'desc')->get();
+        return PostCollection::collection($post);
+    }
+
+    public function isNegative(){
+        $post = Post::where('is_positive', '=', 0)->orderBy('id', 'desc')->get();
+        return PostCollection::collection($post);
     }
 
     /**

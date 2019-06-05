@@ -57,7 +57,7 @@ class CommentController extends Controller
 
     public function show(Request $request){
         $comments = Comment::where('post_id', '=', $request->post_id)->orderBy('id', 'desc')->get();
-        return response()->json($comments);
+        return CommentCollection::collection($comments);
     }
 
     /**

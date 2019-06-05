@@ -16,10 +16,14 @@ class ReplyCollection extends Resource
     public function toArray($request)
     {
         return [
+            'replyId' => $this->id,
             'reply' => $this->reply,
-            'time' => $this->created_at->format('Y-m-d H:i'),
+            'date' => $this->created_at->format('Y-m-d H:i'),
             'by' => $this->user->name,
-            'likes' => $this->reply_pluses_count
+            'likes' => $this->reply_pluses_count,
+            'image' => $this->user->profile_pic,
+            'reports' => $this->reports_count
+
         ];
     }
 }

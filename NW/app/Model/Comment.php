@@ -13,7 +13,8 @@ class Comment extends Model
 
     protected $withCount = [
         'replies',
-        'comment_pluses'
+        'comment_pluses',
+        'reports'
     ];
 
     public function post(){
@@ -30,5 +31,9 @@ class Comment extends Model
 
     public function comment_pluses(){
         return $this->hasMany(CommentPlus::class);
+    }
+
+    public function reports(){
+        return $this->hasMany(ReportComment::class);
     }
 }
