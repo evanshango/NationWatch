@@ -26,8 +26,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
 //        Resource::withoutWrapping();
-//        Blade::if('featured', function ($post){
-//           return $post->featured();
+//        Blade::if('featured', function ($user){
+//           return $user->featured();
 //        });
     }
 }

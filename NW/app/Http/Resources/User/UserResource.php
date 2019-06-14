@@ -15,15 +15,19 @@ class UserResource extends Resource
      */
     public function toArray($request)
     {
+        $location = $this->location->name;
+
         return [
+            'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
             'description' => $this->description,
-            'profile_pic' => $this->profile_pic,
-            'Year of birth' => $this->yob,
-            'location' => [
-                'name' => $this->location->name
-                ]
+            'profile' => $this->profile_pic,
+            'year_of_birth' => $this->yob,
+            'gender' => $this->gender,
+            'reg_date' => $this->created_at->format('Y-m-d H:i'),
+            'is_suspended' => $this->is_suspended,
+            'location' => $location
         ];
     }
 }

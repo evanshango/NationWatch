@@ -19,6 +19,7 @@ class PostCollection extends Resource
         $downvotes = $this->downvotes_count;
         $reports = $this->reports_count;
         $location = $this->user->location->name;
+//        $id = $this->user->location->code;
 
         return [
             'postId' => $this->id,

@@ -2,13 +2,17 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('location', 'LocationController@index');
+Route::get('locations', 'LocationController@index');
+Route::get('location/{id}/posts', 'LocationController@show');
 Route::post('location', 'LocationController@store');
+//
+Route::get('location-stats', 'LocationStatsController@store');
 // authentication
+Route::post('user/check', 'AuthController@checkUser');
 Route::post('register', 'AuthController@register');
 Route::post('login', 'AuthController@login');
 Route::post('refresh', 'AuthController@refresh');
-Route::get('users', 'AuthController@index');
+Route::get('users', 'AuthController@users');
 // tags
 Route::get('tags', 'TagController@index');
 Route::post('tags', 'TagController@store');
@@ -38,9 +42,18 @@ Route::get('post-reports', 'ReportsController@reportPosts');
 Route::get('comment-reports', 'ReportsController@reportComments');
 Route::get('reply-reports', 'ReportsController@reportReplies');
 // tag-stats
+Route::get('stats', 'TagStatsController@viewStats');
 Route::get('tag-stats', 'TagStatsController@updateStats');
+Route::get('tag-upvotes', 'TagStatsController@tagUpvotes');
+Route::get('tag-downvotes', 'TagStatsController@tagDownvotes');
+Route::get('location-upvotes', 'TagStatsController@locationUpvotes');
+Route::get('location-downvotes', 'TagStatsController@locationDownvotes');
+Route::get('tag/upvotes/negative', 'TagStatsController@negative');
+Route::get('tag/downvotes/negative', 'TagStatsController@negativeDownvotes');
 
 Route::middleware('auth:api')->group( function () {
+    Route::get('users/me', 'AuthController@index');
+
     Route::post('logout', 'AuthController@logout');
     Route::delete('account/{id}/delete', 'AuthController@destroy');
 
@@ -52,7 +65,7 @@ Route::middleware('auth:api')->group( function () {
     Route::put('comment/{id}/edit', 'CommentController@update');
     Route::delete('comment/{id}/delete', 'CommentController@destroy');
 
-    Route::post('replies', 'ReplyController@store');
+    Route::post('reply', 'ReplyController@store');
     Route::put('reply/{id}/edit', 'ReplyController@update');
     Route::delete('reply/{id}/delete', 'ReplyController@destroy');
 

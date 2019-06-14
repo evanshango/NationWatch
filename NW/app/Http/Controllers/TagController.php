@@ -16,7 +16,7 @@ class TagController extends Controller
      */
     public function index()
     {
-        $tag = Tag::orderBy('id', 'desc')->get();
+        $tag = Tag::orderBy('name', 'asc')->get();
         return TagCollection::collection($tag);
 
     }

@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\User\UserCollection;
+use App\Http\Resources\User\UserResource;
 use App\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 use Laravel\Passport\Client;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,6 +26,14 @@ class AuthController extends Controller
     }
 
     public function index(){
+        $user = Auth::user();
+        return new UserResource($user);
+    }
+
+    /**
+     * @return AnonymousResourceCollection
+     */
+    public function users(){
         $user = User::orderBy('id', 'desc')->get();
         return UserCollection::collection($user);
     }
@@ -63,7 +74,9 @@ class AuthController extends Controller
         }
         $user->save();
 
-        return $this->issueToken($request, 'password');
+        return $this->issueToken($request,
+            'password'
+        );
     }
 
     /**
@@ -78,7 +91,8 @@ class AuthController extends Controller
             'password' => 'required'
         ]);
 
-        return $this->issueToken($request, 'password');
+        $response = $this->issueToken($request, 'password');
+        return $response;
     }
 
     /**
@@ -140,6 +154,24 @@ class AuthController extends Controller
         return response()->json([
             'message' => 'Account deleted'
         ]);
+    }
+
+    public function checkUser(Request $request) {
+        $email_validator = Validator::make($request->only('email'), [
+            'email' => 'required|email|string:255|unique:users',
+        ]);
+
+
+        $username_validator = Validator::make($request->only('name'), [
+            'name' => 'required|string:255|unique:users',
+        ]);
+
+        $response = [
+            'email_exists' => $email_validator->fails(),
+            'name_exists' => $username_validator->fails()
+        ];
+
+        return response()->json($response);
     }
 
 }

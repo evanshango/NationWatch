@@ -20,6 +20,6 @@ class Location extends Model
     }
 
     public function posts(){
-        return $this->hasMany(Post::class);
+        return $this->hasManyThrough(Post::class, User::class);
     }
 }

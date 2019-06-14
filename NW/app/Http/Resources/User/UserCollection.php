@@ -21,6 +21,8 @@ class UserCollection extends Resource
             'description' => $this->description,
             'profile_pic' => $this->profile_pic,
             'Year of birth' => $this->yob,
+            'gender' => $this->gender,
+            'regDate' => $this->created_at->format('Y-m-d H:i'),
             'location' => $this->location->name
         ];
     }

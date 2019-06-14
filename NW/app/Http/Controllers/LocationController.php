@@ -10,9 +10,11 @@ class LocationController extends Controller
 {
     public function index()
     {
-        $location = Location::all();
-        return LocationCollection::collection($location);
+        $location = Location::orderBy('code', 'asc')->get();
+//        return LocationCollection::collection($location);
+        return response()->json($location);
     }
+
     public function store(Request $request)
     {
         $locations = new Location();
@@ -27,15 +29,26 @@ class LocationController extends Controller
         ]);
     }
 
-    public function show(Location $location)
+    public function show(Request $request)
     {
-        //
+        $code = $request->id;
+            $location = Location::where('id', '=', $code)->get();
+            $result = LocationCollection::collection($location);
+            if ($result->isEmpty()) {
+                return response()->json([
+                    'message' => 'There are no posts for this location'
+                ]);
+            } else {
+                return $result;
+            }
+
     }
 
     public function update(Request $request, Location $location)
     {
         //
     }
+
     public function destroy(Location $location)
     {
         //

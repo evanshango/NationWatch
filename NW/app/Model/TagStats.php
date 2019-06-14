@@ -11,6 +11,10 @@ class TagStats extends Model
     ];
 
     public function posts(){
-        return $this->hasMany(Post::class);
+        return $this->hasMany(Post::class, 'tag_id');
+    }
+
+    public function tag(){
+        return $this->belongsTo(Tag::class);
     }
 }

@@ -11,7 +11,7 @@ class Post extends Model
         'comments',
         'upvotes',
         'downvotes',
-        'reports'
+        'reports',
     ];
 
     protected $withCount = [
@@ -46,7 +46,7 @@ class Post extends Model
     }
 
     public function location(){
-        return $this->belongsTo(Location::class);
+        return $this->hasOneThrough(Location::class, User::class);
     }
 
     public function upvotes(){
@@ -62,7 +62,11 @@ class Post extends Model
     }
 
     public function tag_stats(){
-        return $this->belongsTo(TagStats::class);
+        return $this->hasMany(TagStats::class);
+    }
+
+    public function location_stats(){
+        return $this->hasOneThrough(LocationStats::class, Post::class);
     }
 
 }

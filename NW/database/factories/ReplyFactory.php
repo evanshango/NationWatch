@@ -16,6 +16,6 @@ $factory->define(Reply::class, function (Faker $faker) {
         'user_id' => function(){
             return User::all()->random();
         },
-        'reply' => $faker->sentence
+        'reply' => $faker->paragraph($nbSentences = 3, $variableNbSentences = true),
     ];
 });

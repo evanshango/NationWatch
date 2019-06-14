@@ -5,9 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PostRequest;
 use App\Http\Resources\Post\PostCollection;
 use App\Model\Post;
-use http\Env\Request;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request as RequestAlias;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -21,7 +20,6 @@ class PostController extends Controller
     public function index()
     {
         $post = Post::orderBy('id', 'desc')->get();
-//        return response()->json($post);
         return PostCollection::collection($post);
     }
 
@@ -56,12 +54,12 @@ class PostController extends Controller
 
     /**
      * Display the specified resource.
-     * @param RequestAlias $request
-     * @return AnonymousResourceCollection
+     * @param Request $request
+     * @return JsonResponse|AnonymousResourceCollection
      */
-    public function show(RequestAlias $request)
+    public function show(Request $request)
     {
-        $post = Post::where('id', '=', $request->id)->orderBy('id', 'desc')->get();
+        $post = Post::where('id', '=', $request->id)->get();
         if ($post == null){
             return response()->json([
                 'message' => 'Item not be found'
@@ -106,15 +104,18 @@ class PostController extends Controller
         }
         $post->update();
         return response()->json([
-            'message' => 'Posts added successfully.',
+            'message' => 'Posts updated successfully.',
         ]);
     }
 
+    // Get posts based on  whether they are positive or negative to display on the clientUI
     public function isPositive(){
         $post = Post::where('is_positive', '=', 1)->orderBy('id', 'desc')->get();
         return PostCollection::collection($post);
+
     }
 
+    //Get posts based on whether they are negative to display on the client UI
     public function isNegative(){
         $post = Post::where('is_positive', '=', 0)->orderBy('id', 'desc')->get();
         return PostCollection::collection($post);

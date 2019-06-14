@@ -16,7 +16,7 @@ $factory->define(Comment::class, function (Faker $faker) {
         'post_id' => function(){
             return Post::all()->random();
         },
-        'description' => $faker->sentence,
-        'image' => $faker->imageUrl($width = 640, $height = 480)
+        'description' => $faker->paragraph($nbSentences = 3, $variableNbSentences = true),
+        'image' => 'https://placeimg.com/640/480/any?' . rand(1, 100)
     ];
 });
